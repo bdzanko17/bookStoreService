@@ -43,18 +43,6 @@ public class AuthorService {
     }
 
 
-//    public Author addBookToAuthorr(Long idAuthor, Long idBook) { //Adding author books id
-//
-//        Optional<Book> bookOptional = bookRepository.getBookEntityById(idBook);
-//        Optional<Author> authorOptional = authorRepository.getAuthorEntityById(idAuthor);
-//
-//       if (bookOptional.isPresent() && authorOptional.isPresent()) {
-//           System.out.println(bookOptional.get().getId());
-//            return authorOptional.get();
-//        } else {
-//            throw new IllegalArgumentException("bad");
-//     }
-//
-//    }
+
 
 }

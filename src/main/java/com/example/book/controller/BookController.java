@@ -3,6 +3,7 @@ package com.example.book.controller;
 import com.example.book.model.Book;
 import com.example.book.model.EntityInput.BookEntityInput;
 import com.example.book.service.BookService;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +20,7 @@ public class BookController {
     }
 
     @PostMapping("/saveBook")
+    @JsonIgnore
     public Book save(@RequestBody BookEntityInput book) {
         return service.saveBook(book);
     }
@@ -37,16 +39,6 @@ public class BookController {
 
 
 
-
-//    @PutMapping(path = "/{id}")
-//    public Book addPageToBook(@PathVariable Long id){
-//        return service.get
-//    }
-
-//    @GetMapping(path = "/{id}")
-//    public AAAA find(@PathVariable Long id){
-//        return service.getById(id);
-//    }
 
 
 }
