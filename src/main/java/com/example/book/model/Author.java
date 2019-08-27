@@ -15,7 +15,7 @@ public class Author implements Serializable {
     private Long id;
     private String name;
 
-    @ManyToMany(mappedBy = "authors")
+    @ManyToMany(mappedBy = "authors", cascade = CascadeType.ALL)
     private List<Book> books;
 
     public Author(String name) {

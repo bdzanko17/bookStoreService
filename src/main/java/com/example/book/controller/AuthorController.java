@@ -4,10 +4,7 @@ import com.example.book.model.Author;
 import com.example.book.model.Book;
 import com.example.book.service.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class AuthorController {
@@ -21,6 +18,16 @@ public class AuthorController {
     @PostMapping("/addAuthor")
     public Author addAuthor(@RequestBody Author author){
        return service.save(author);
+    }
+
+    @DeleteMapping("deleteAuthor/{id}")
+    public void deleteAuthor(@PathVariable String id){
+        service.deleteAuthor(Long.parseLong(id));
+    }
+
+    @PostMapping("/changeAuthor/{id}")
+    public Author  changeAuthorName(@RequestBody Author author, @PathVariable String id){
+        return service.changeAuthorName(author,Long.parseLong(id));
     }
 
 //
