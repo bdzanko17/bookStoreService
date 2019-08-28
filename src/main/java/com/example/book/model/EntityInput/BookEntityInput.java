@@ -6,8 +6,17 @@ public class BookEntityInput {
     private String title;
     private String genre;
     private List<Long> authors;
+    private List<Long> pages;
 
-    public BookEntityInput( String title, String genre, List<Long> authors) {
+
+    public BookEntityInput(String title, String genre, List<Long> authors, List<Long> pages) {
+        this.title = title;
+        this.genre = genre;
+        this.authors = authors;
+        this.pages = pages;
+    }
+
+    public BookEntityInput(String title, String genre, List<Long> authors) {
         this.title = title;
         this.genre = genre;
         this.authors = authors;
@@ -38,5 +47,13 @@ public class BookEntityInput {
 
     public void setAuthors(List<Long> authors) {
         this.authors = authors;
+    }
+
+    public List<Long> getPages() {
+        return pages;
+    }
+
+    public void setPages(List<Long> pages) {
+        this.pages = pages;
     }
 }

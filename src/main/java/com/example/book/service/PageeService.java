@@ -36,7 +36,10 @@ public class PageeService {
     }
 
     public Pagee getPage(Long id) {
+        Optional<Pagee> pageeOptional = pageRepository.getPageEntityById(id);
+        if(pageeOptional.isPresent())
         return pageRepository.getOne(id);
+        else throw new IllegalStateException();
     }
 
 }

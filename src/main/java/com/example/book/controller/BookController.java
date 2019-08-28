@@ -33,7 +33,10 @@ public class BookController {
     public List<Book> getBookList(){
         return service.getBookList();
     }
-
+    @PostMapping("/updateBook/{id}")
+    public Book updateBookByID(@RequestBody  BookEntityInput bookEntityInput,@PathVariable String ID ){
+        return service.updateBook(bookEntityInput,Long.parseLong(ID));
+    }
 
 
 

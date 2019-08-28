@@ -3,6 +3,7 @@ package com.example.book.service;
 import com.example.book.model.Author;
 import com.example.book.model.Book;
 import com.example.book.model.EntityInput.BookEntityInput;
+import com.example.book.model.Pagee;
 import com.example.book.repository.AuthorRepository;
 import com.example.book.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +53,12 @@ public class BookService {
     }
 
 
-
-
+    public Book updateBook(BookEntityInput bookEntityInput, Long bookID) {
+        Optional<Book> bookOptional = bookRepository.getBookEntityById(bookID);
+        List<Long> authors = bookEntityInput.getAuthors();
+        List<Long> pages= bookEntityInput.getPages();
+        if(bookOptional.isPresent()){
+        }
+        return null;
+    }
 }

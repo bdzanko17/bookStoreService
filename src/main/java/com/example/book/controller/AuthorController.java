@@ -19,29 +19,34 @@ public class AuthorController {
     }
 
     @PostMapping("/addAuthor")
-    public Author addAuthor(@RequestBody Author author){
-       return service.save(author);
+    public Author addAuthor(@RequestBody Author author) {
+        return service.save(author);
     }
 
     @DeleteMapping("deleteAuthor/{id}")
-    public void deleteAuthor(@PathVariable String id){
+    public void deleteAuthor(@PathVariable String id) {
         service.deleteAuthor(Long.parseLong(id));
     }
 
-    @PostMapping("/changeAuthor/{id}")
-    public Author  changeAuthorName(@RequestBody Author author, @PathVariable String id){
-        return service.changeAuthorName(author,Long.parseLong(id));
+    @PostMapping("/changeAuthorName/{id}")
+    public Author changeAuthorName(@RequestBody Author author, @PathVariable String id) {
+        return service.changeAuthorName(author, Long.parseLong(id));
     }
+
     @GetMapping("/getAuthor/{id}")
-    public Author getAuthor(@PathVariable String id){
+    public Author getAuthor(@PathVariable String id) {
         return service.getAuthor(Long.parseLong(id));
     }
 
     @GetMapping("/authors")
-    @JsonIgnore
-    public List<Author> getAuthors(){
-        List<Author> authors= service.getAllAuthors();
+    public List<Author> getAuthors() {
+        List<Author> authors = service.getAllAuthors();
         return authors;
+    }
+
+    @GetMapping("getBooksFromAuthor/{id}")
+    public List<Book> getBooksFromAuthor(@PathVariable String id) {
+        return service.getBooksFromAuthor(Long.parseLong(id));
     }
 
 

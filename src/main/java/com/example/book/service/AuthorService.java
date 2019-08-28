@@ -16,7 +16,6 @@ public class AuthorService {
     private AuthorRepository authorRepository;
 
 
-
     @Autowired
     public AuthorService(AuthorRepository authorRepository) {
         this.authorRepository = authorRepository;
@@ -24,7 +23,7 @@ public class AuthorService {
 
     public Author save(Author author) {
         Optional<Author> authorOptional = authorRepository.getAuthorEntityById(author.getId());
-        if(authorOptional.isPresent()){
+        if (authorOptional.isPresent()) {
             throw new IllegalStateException("bad");
         }
         return authorRepository.save(author);
@@ -36,10 +35,10 @@ public class AuthorService {
     }
 
     public Author changeAuthorName(Author author, long authorID) {
-        Optional<Author> authorOptional =  authorRepository.getAuthorEntityById(authorID);
-        if(authorOptional.isPresent())
-        authorOptional.get().setName(author.getName());
-        else throw new IllegalStateException("Author with " +authorID+" does not exist");
+        Optional<Author> authorOptional = authorRepository.getAuthorEntityById(authorID);
+        if (authorOptional.isPresent())
+            authorOptional.get().setName(author.getName());
+        else throw new IllegalStateException("Author with " + authorID + " does not exist");
         return authorRepository.save(authorOptional.get());
     }
 
@@ -48,13 +47,20 @@ public class AuthorService {
         Optional<Author> authorOptional = authorRepository.getAuthorEntityById(authorID);
         if (authorOptional.isPresent()) {
             return authorOptional.get();
-        }
-        else {
-            throw  new IllegalAccessError("There is no  author with that id");
+        } else {
+            throw new IllegalAccessError("There is no  author with that id");
         }
     }
 
     public List<Author> getAllAuthors() {
         return authorRepository.findAll();
+    }
+
+    public List<Book> getBooksFromAuthor(Long authorID) {
+        Optional<Author> optionalAuthor = authorRepository.getAuthorEntityById(authorID);
+        if (optionalAuthor.isPresent()) {
+            List<Book> bookList = optionalAuthor.get().getBooks();
+            return bookList;
+        } else throw new IllegalStateException("bad author");
     }
 }
