@@ -16,7 +16,7 @@ public class Author implements Serializable {
     private String name;
 
     @ManyToMany(mappedBy = "authors", cascade = CascadeType.ALL)
-    private List<Book> books;
+    private List<Book> books = new ArrayList<>();
 
     public Author(String name) {
         this.name = name;
@@ -55,5 +55,8 @@ public class Author implements Serializable {
         books.add(book);
     }
 
-
+    @Override
+    public String toString() {
+        return "Author name  is " + this.getName();
+    }
 }

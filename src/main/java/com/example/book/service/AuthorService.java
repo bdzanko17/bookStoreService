@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -43,6 +44,17 @@ public class AuthorService {
     }
 
 
+    public Author getAuthor(long authorID) {
+        Optional<Author> authorOptional = authorRepository.getAuthorEntityById(authorID);
+        if (authorOptional.isPresent()) {
+            return authorOptional.get();
+        }
+        else {
+            throw  new IllegalAccessError("There is no  author with that id");
+        }
+    }
 
-
+    public List<Author> getAllAuthors() {
+        return authorRepository.findAll();
+    }
 }
