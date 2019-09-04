@@ -1,10 +1,14 @@
-package com.example.book.service;
+package com.example.book.service.impl;
 
+import com.example.book.exceptions.AuthorNotFoundException;
 import com.example.book.model.Author;
 import com.example.book.model.Book;
 import com.example.book.repository.AuthorRepository;
 import com.example.book.repository.BookRepository;
+import com.example.book.service.IAuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,9 +16,8 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class AuthorService {
+public class AuthorService implements IAuthorService {
     private AuthorRepository authorRepository;
-
 
     @Autowired
     public AuthorService(AuthorRepository authorRepository) {
@@ -43,12 +46,12 @@ public class AuthorService {
     }
 
 
-    public Author getAuthor(long authorID) {
+    public ResponseEntity<Object> getAuthor(long authorID) {
         Optional<Author> authorOptional = authorRepository.getAuthorEntityById(authorID);
         if (authorOptional.isPresent()) {
-            return authorOptional.get();
+            return new ResponseEntity<>("Product found successfully", HttpStatus.OK);
         } else {
-            throw new IllegalAccessError("There is no  author with that id");
+            throw new AuthorNotFoundException(authorID);
         }
     }
 
@@ -62,5 +65,9 @@ public class AuthorService {
             List<Book> bookList = optionalAuthor.get().getBooks();
             return bookList;
         } else throw new IllegalStateException("bad author");
+    }
+
+    public void deleteAuthors() {
+        authorRepository.deleteAll();
     }
 }

@@ -1,32 +1,34 @@
-package com.example.book.service;
+package com.example.book.service.impl;
 
 import com.example.book.model.Book;
 import com.example.book.model.EntityInput.PageEntityInput;
-import com.example.book.model.Pagee;
+import com.example.book.model.Page;
 import com.example.book.repository.BookRepository;
 import com.example.book.repository.PageRepository;
+import com.example.book.service.IPageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
-public class PageeService {
+public class PageService implements IPageService {
 
     private PageRepository pageRepository;
     private BookRepository bookRepository;
 
     @Autowired
-    public PageeService(PageRepository pageRepository, BookRepository bookRepository) {
+    public PageService(PageRepository pageRepository, BookRepository bookRepository) {
         this.pageRepository = pageRepository;
         this.bookRepository = bookRepository;
     }
 
 
-    public Pagee savePage(PageEntityInput pagee) {
+    public Page savePage(PageEntityInput pagee) {
        Optional<Book> bookOptional =  bookRepository.getBookEntityById(pagee.getBookID());
        if(bookOptional.isPresent()){
-           Pagee page2Save  = new Pagee();
+           Page page2Save  = new Page();
            page2Save.setContent(pagee.getContent());
            page2Save.setOrdinalNumber(pagee.getOrdinalNumber());
            page2Save.setBook(bookOptional.get());
@@ -35,11 +37,21 @@ public class PageeService {
        }else  throw new IllegalAccessError("There is no book with that ID");
     }
 
-    public Pagee getPage(Long id) {
-        Optional<Pagee> pageeOptional = pageRepository.getPageEntityById(id);
+    public Page getPage(Long id) {
+        Optional<Page> pageeOptional = pageRepository.getPageEntityById(id);
         if(pageeOptional.isPresent())
         return pageRepository.getOne(id);
         else throw new IllegalStateException();
+    }
+
+    @Override
+    public void deletePage(Long id) {
+        pageRepository.delete(pageRepository.getOne(id));
+    }
+
+    @Override
+    public List<Page> getPages() {
+        return  pageRepository.findAll();
     }
 
 }

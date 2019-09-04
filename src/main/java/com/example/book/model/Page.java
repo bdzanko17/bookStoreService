@@ -6,7 +6,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "pagee"/*, schema = "bookstore", catalog = ""*/)
 
-public class Pagee implements Serializable {
+public class Page implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -16,10 +16,10 @@ public class Pagee implements Serializable {
     @ManyToOne
     private Book book;
 
-    public Pagee() {
+    public Page() {
     }
 
-    public Pagee(Long ordinalNumber, String content) {
+    public Page(Long ordinalNumber, String content) {
         this.ordinalNumber = ordinalNumber;
         this.content = content;
     }

@@ -1,21 +1,20 @@
-package com.example.book.service;
+package com.example.book.service.impl;
 
 import com.example.book.model.Author;
 import com.example.book.model.Book;
 import com.example.book.model.EntityInput.BookEntityInput;
-import com.example.book.model.Pagee;
 import com.example.book.repository.AuthorRepository;
 import com.example.book.repository.BookRepository;
+import com.example.book.service.IBookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.nio.file.OpenOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class BookService {
+public class BookService implements IBookService {
     private BookRepository bookRepository;
     private AuthorRepository authorRepository;
 
@@ -56,8 +55,8 @@ public class BookService {
     public Book updateBook(BookEntityInput bookEntityInput, Long bookID) {
         Optional<Book> bookOptional = bookRepository.getBookEntityById(bookID);
         List<Long> authors = bookEntityInput.getAuthors();
-        List<Long> pages= bookEntityInput.getPages();
-        if(bookOptional.isPresent()){
+        List<Long> pages = bookEntityInput.getPages();
+        if (bookOptional.isPresent()) {
         }
         return null;
     }

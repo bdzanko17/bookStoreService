@@ -2,7 +2,6 @@ package com.example.book.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -21,10 +20,12 @@ public class Book implements Serializable {
     private String genre;
 
     @ManyToMany
+    @JsonIgnore
     private List<Author> authors = new ArrayList<>();
 
     @OneToMany(mappedBy = "book")
-    private List<Pagee> pagees = new ArrayList<>();
+    @JsonIgnore
+    private List<Page> pages = new ArrayList<>();
 
 
     public Book() {
@@ -77,12 +78,12 @@ public class Book implements Serializable {
         return "Book " + this.title + " is " + this.getGenre();
     }
 
-    public List<Pagee> getPagees() {
-        return pagees;
+    public List<Page> getPages() {
+        return pages;
     }
 
-    public void setPagees(List<Pagee> pagees) {
-        this.pagees = pagees;
+    public void setPages(List<Page> pages) {
+        this.pages = pages;
     }
 
 }
