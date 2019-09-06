@@ -13,7 +13,7 @@ public interface IAuthorService {
 
     public Author changeAuthorName(Author author, long authorID);
 
-    public ResponseEntity<Object> getAuthor(long authorID);
+    public Author getAuthor(long authorID);
 
     public List<Author> getAllAuthors();
 

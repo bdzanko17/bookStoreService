@@ -1,5 +1,6 @@
 package com.example.book.service.impl;
 
+import com.example.book.exceptions.PageNotFoundException;
 import com.example.book.model.Book;
 import com.example.book.model.EntityInput.PageEntityInput;
 import com.example.book.model.Page;
@@ -52,6 +53,19 @@ public class PageService implements IPageService {
     @Override
     public List<Page> getPages() {
         return  pageRepository.findAll();
+    }
+
+    @Override
+    public Page updatePage(PageEntityInput pageEntityInput, Long ID) {
+        Optional<Page> pageOptional= pageRepository.getPageEntityById(ID);
+
+        if(pageOptional.isPresent()){
+            pageOptional.get().setContent(pageEntityInput.getContent());
+            pageOptional.get().setOrdinalNumber(pageEntityInput.getOrdinalNumber());
+        }else{
+            throw new PageNotFoundException();
+        }
+        return pageRepository.save(pageOptional.get());
     }
 
 }

@@ -40,7 +40,7 @@ public class AuthorController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Object> getAuthor(@PathVariable String id) {
+    public Author getAuthor(@PathVariable String id) {
         return service.getAuthor(Long.parseLong(id));
     }
 

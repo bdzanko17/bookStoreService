@@ -1,11 +1,13 @@
 package com.example.book.service.impl;
 
+import com.example.book.exceptions.BookAlreadyExistException;
 import com.example.book.model.Author;
 import com.example.book.model.Book;
 import com.example.book.model.EntityInput.BookEntityInput;
 import com.example.book.repository.AuthorRepository;
 import com.example.book.repository.BookRepository;
 import com.example.book.service.IBookService;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,15 +33,18 @@ public class BookService implements IBookService {
 
     public Book saveBook(BookEntityInput book) {
         Optional<Book> bookOptional = bookRepository.getBookEntityByTitle(book.getTitle());
-        if (bookOptional.isPresent()) throw new IllegalStateException("Book already exist");
+        if (bookOptional.isPresent()) throw new BookAlreadyExistException();
         List<Long> authorID = book.getAuthors();
         List<Author> authors = new ArrayList<>();
+        Boolean addedAuthors = false;
         for (int i = 0; i < authorID.size(); i++) {
             Optional<Author> authorOptional = authorRepository.getAuthorEntityById(authorID.get(i));
-            if (authorOptional.isPresent())
+            if (authorOptional.isPresent()) {
                 authors.add(authorOptional.get());
-            else throw new IllegalStateException("There is no authors for this book");
+                addedAuthors = true;
+            } else continue;
         }
+        if (!addedAuthors) throw new IllegalArgumentException("There is no authors for this book");
         Book newBook = new Book(book.getTitle(), book.getGenre());
         newBook.setAuthors(authors);
         return bookRepository.save(newBook);
@@ -52,12 +57,4 @@ public class BookService implements IBookService {
     }
 
 
-    public Book updateBook(BookEntityInput bookEntityInput, Long bookID) {
-        Optional<Book> bookOptional = bookRepository.getBookEntityById(bookID);
-        List<Long> authors = bookEntityInput.getAuthors();
-        List<Long> pages = bookEntityInput.getPages();
-        if (bookOptional.isPresent()) {
-        }
-        return null;
-    }
 }

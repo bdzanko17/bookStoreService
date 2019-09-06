@@ -6,6 +6,7 @@ import com.example.book.model.Book;
 import com.example.book.repository.AuthorRepository;
 import com.example.book.repository.BookRepository;
 import com.example.book.service.IAuthorService;
+import com.sun.org.apache.bcel.internal.generic.RETURN;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,12 +25,15 @@ public class AuthorService implements IAuthorService {
         this.authorRepository = authorRepository;
     }
 
+
+    @Override
     public Author save(Author author) {
-        Optional<Author> authorOptional = authorRepository.getAuthorEntityById(author.getId());
+        Optional<Author> authorOptional = authorRepository.getAuthorEntityByName(author.getName());
         if (authorOptional.isPresent()) {
-            throw new IllegalStateException("bad");
+            throw  new  IllegalStateException();
         }
-        return authorRepository.save(author);
+        Author benjo = authorRepository.save(author);
+        return  benjo;
 
     }
 
@@ -46,10 +50,11 @@ public class AuthorService implements IAuthorService {
     }
 
 
-    public ResponseEntity<Object> getAuthor(long authorID) {
+    public Author getAuthor(long authorID) {
         Optional<Author> authorOptional = authorRepository.getAuthorEntityById(authorID);
         if (authorOptional.isPresent()) {
-            return new ResponseEntity<>("Product found successfully", HttpStatus.OK);
+            return authorOptional.get();
+           // return new ResponseEntity<>("Product found successfully", HttpStatus.OK);
         } else {
             throw new AuthorNotFoundException(authorID);
         }

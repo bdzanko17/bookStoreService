@@ -13,4 +13,6 @@ public interface IPageService {
     public void deletePage(Long id);
 
     public List<Page> getPages();
+
+    public Page updatePage(PageEntityInput pageEntityInput, Long ID);
 }

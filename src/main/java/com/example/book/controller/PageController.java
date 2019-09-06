@@ -34,9 +34,14 @@ public class PageController {
         service.deletePage(Long.parseLong(id));
     }
 
+    @PutMapping(path = "/{id}")
+    public Page updatePage(@PathVariable String id, @RequestBody PageEntityInput pageEntityInput) {
+        return service.updatePage(pageEntityInput, Long.parseLong(id));
+    }
+
     @GetMapping
     public List<Page> getPages() {
-       return service.getPages();
+        return service.getPages();
     }
 
 }

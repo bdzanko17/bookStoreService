@@ -33,11 +33,17 @@ public class BookController {
         return service.getBookList();
     }
 
-    @PutMapping("/updateBook/{id}")
-    public Book updateBookByID(@RequestBody  BookEntityInput bookEntityInput,@PathVariable String ID ){
-        return service.updateBook(bookEntityInput,Long.parseLong(ID));
-
+    @ResponseBody
+    @GetMapping("/test")
+    public String hello() {
+        return "Hello Controller";
     }
+
+//    @PutMapping("/updateBook/{id}")
+//    public Book updateBookByID(@RequestBody  BookEntityInput bookEntityInput,@PathVariable String ID ){
+//        return service.updateBook(bookEntityInput,Long.parseLong(ID));
+//
+//    }
 
 
 

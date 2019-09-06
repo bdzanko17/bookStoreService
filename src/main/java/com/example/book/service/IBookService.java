@@ -12,6 +12,4 @@ public interface IBookService {
 
     public List<Book> getBookList();
 
-    public Book updateBook(BookEntityInput bookEntityInput, Long bookID);
-
 }
