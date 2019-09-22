@@ -23,7 +23,10 @@ public class PageController {
     public Page save(@RequestBody PageEntityInput pagee) {
         return service.savePage(pagee);
     }
-
+    @DeleteMapping
+    public void deletePages(){
+        service.deletePages();
+    }
     @GetMapping("/{id}")
     public Page getPageByID(@PathVariable Long id) {
         return service.getPage(id);

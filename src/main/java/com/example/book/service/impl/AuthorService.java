@@ -1,5 +1,6 @@
 package com.example.book.service.impl;
 
+import com.example.book.exceptions.AuthorAlreadyExistException;
 import com.example.book.exceptions.AuthorNotFoundException;
 import com.example.book.model.Author;
 import com.example.book.model.Book;
@@ -30,11 +31,9 @@ public class AuthorService implements IAuthorService {
     public Author save(Author author) {
         Optional<Author> authorOptional = authorRepository.getAuthorEntityByName(author.getName());
         if (authorOptional.isPresent()) {
-            throw  new  IllegalStateException();
+            throw new AuthorAlreadyExistException();
         }
-        Author benjo = authorRepository.save(author);
-        return  benjo;
-
+        return authorRepository.save(author);
     }
 
     public void deleteAuthor(Long id) {
@@ -54,14 +53,15 @@ public class AuthorService implements IAuthorService {
         Optional<Author> authorOptional = authorRepository.getAuthorEntityById(authorID);
         if (authorOptional.isPresent()) {
             return authorOptional.get();
-           // return new ResponseEntity<>("Product found successfully", HttpStatus.OK);
+            // return new ResponseEntity<>("Product found successfully", HttpStatus.OK);
         } else {
-            throw new AuthorNotFoundException(authorID);
+            throw new AuthorNotFoundException();
         }
     }
 
     public List<Author> getAllAuthors() {
         return authorRepository.findAll();
+
     }
 
     public List<Book> getBooksFromAuthor(Long authorID) {

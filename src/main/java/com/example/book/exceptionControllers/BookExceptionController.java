@@ -1,6 +1,7 @@
 package com.example.book.exceptionControllers;
 
 import com.example.book.exceptions.BookAlreadyExistException;
+import com.example.book.exceptions.BookNotFoundException;
 import com.example.book.exceptions.NoAuthorsForBookException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,5 +22,9 @@ public class BookExceptionController {
     @ExceptionHandler(value = NoAuthorsForBookException.class)
     public ResponseEntity<Object> exception(NoAuthorsForBookException exception){
         return new ResponseEntity<>("No authors for book", HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler(value = BookNotFoundException.class)
+    public ResponseEntity<Object> exception(BookNotFoundException exception){
+        return new ResponseEntity<>("Book not exist", HttpStatus.BAD_REQUEST);
     }
 }

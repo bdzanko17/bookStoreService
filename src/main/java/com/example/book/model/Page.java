@@ -1,10 +1,12 @@
 package com.example.book.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "pagee"/*, schema = "bookstore", catalog = ""*/)
+@Table(name = "page"/*, schema = "bookstore", catalog = ""*/)
 
 public class Page implements Serializable {
     @Id
@@ -14,6 +16,7 @@ public class Page implements Serializable {
     private String content;
 
     @ManyToOne
+    @JsonIgnore
     private Book book;
 
     public Page() {

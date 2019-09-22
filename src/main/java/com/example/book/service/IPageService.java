@@ -6,13 +6,15 @@ import com.example.book.model.Page;
 import java.util.List;
 
 public interface IPageService {
-    public Page savePage(PageEntityInput pagee);
+    Page savePage(PageEntityInput pagee);
 
-    public Page getPage(Long id);
+    Page getPage(Long id);
 
-    public void deletePage(Long id);
+    void deletePage(Long id);
 
-    public List<Page> getPages();
+    List<Page> getPages();
 
-    public Page updatePage(PageEntityInput pageEntityInput, Long ID);
+    Page updatePage(PageEntityInput pageEntityInput, Long ID);
+
+    void deletePages();
 }

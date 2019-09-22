@@ -1,5 +1,6 @@
 package com.example.book.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.ManyToAny;
 
 import javax.persistence.*;
@@ -14,8 +15,8 @@ public class Author implements Serializable {
     @GeneratedValue
     private Long id;
     private String name;
-
-    @ManyToMany(mappedBy = "authors", cascade = CascadeType.ALL)
+    @JsonBackReference
+    @ManyToMany(mappedBy = "authors", cascade = {CascadeType.ALL} )
     private List<Book> books = new ArrayList<>();
 
     public Author(String name) {
@@ -63,6 +64,6 @@ public class Author implements Serializable {
 
     @Override
     public String toString() {
-        return "Author name  is " + this.getName();
+        return "Author{id="+this.getId()+", name="+this.getName()+"}";
     }
 }

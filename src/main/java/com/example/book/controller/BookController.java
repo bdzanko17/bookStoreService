@@ -1,15 +1,17 @@
 package com.example.book.controller;
 
+import com.example.book.model.Author;
 import com.example.book.model.Book;
 import com.example.book.model.EntityInput.BookEntityInput;
+import com.example.book.model.Page;
 import com.example.book.service.IBookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
 @RequestMapping("/book")
+@CrossOrigin(origins = "http://localhost:4200")
 public class BookController {
 
     private IBookService service;
@@ -25,27 +27,26 @@ public class BookController {
     }
 
     @GetMapping(path = "/{id}")
-    public Book getBook(@PathVariable Long id){
+    public Book getBook(@PathVariable Long id) {
         return service.getBookByID(id);
     }
+    @GetMapping("/getPages/{id}")
+    public List<Page> getPageList(@PathVariable String id){
+        return service.getPageList(id);
+    }
+
     @GetMapping
-    public List<Book> getBookList(){
+    public List<Book> getBookList() {
         return service.getBookList();
     }
-
-    @ResponseBody
-    @GetMapping("/test")
-    public String hello() {
-        return "Hello Controller";
+    @GetMapping("/getAuthors/{id}")
+    public List<Author> getAuthorsList(@PathVariable String id){
+        return service.getAuthorList(id);
     }
-
-//    @PutMapping("/updateBook/{id}")
-//    public Book updateBookByID(@RequestBody  BookEntityInput bookEntityInput,@PathVariable String ID ){
-//        return service.updateBook(bookEntityInput,Long.parseLong(ID));
-//
-//    }
-
-
+    @DeleteMapping("/deleteBook/{id}")
+    public void deleteBook(@PathVariable String id){
+        service.deleteBook(id);
+    }
 
 
 

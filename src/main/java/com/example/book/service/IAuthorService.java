@@ -7,19 +7,19 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 public interface IAuthorService {
-    public Author save(Author author);
+    Author save(Author author);
 
-    public void deleteAuthor(Long id);
+    void deleteAuthor(Long id);
 
-    public Author changeAuthorName(Author author, long authorID);
+    Author changeAuthorName(Author author, long authorID);
 
-    public Author getAuthor(long authorID);
+    Author getAuthor(long authorID);
 
-    public List<Author> getAllAuthors();
+    List<Author> getAllAuthors();
 
-    public List<Book> getBooksFromAuthor(Long authorID);
+    List<Book> getBooksFromAuthor(Long authorID);
 
-    public void deleteAuthors();
+    void deleteAuthors();
 
 
 }

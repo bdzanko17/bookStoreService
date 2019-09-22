@@ -1,15 +1,23 @@
 package com.example.book.service;
 
+import com.example.book.model.Author;
 import com.example.book.model.Book;
 import com.example.book.model.EntityInput.BookEntityInput;
+import com.example.book.model.Page;
 
 import java.util.List;
 
 public interface IBookService {
-    public Book getBookByID(Long id);
+    Book getBookByID(Long id);
 
-    public Book saveBook(BookEntityInput book);
+    Book saveBook(BookEntityInput book);
+    Book saveBook(Book book);
 
-    public List<Book> getBookList();
+    List<Book> getBookList();
 
+    List<Page> getPageList(String id);
+
+    List<Author> getAuthorList(String id);
+
+    void deleteBook(String id);
 }

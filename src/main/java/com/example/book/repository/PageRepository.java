@@ -9,4 +9,7 @@ import java.util.Optional;
 @Repository
 public interface PageRepository extends JpaRepository<Page,Long> {
     Optional<Page> getPageEntityById(Long id);
+    Optional<Page> getPageByOrdinalNumber(Long ordinalNumber);
+
+
 }

@@ -1,6 +1,6 @@
 package com.example.book.exceptions;
 
-public class AuthorNotFoundException extends RuntimeException {
+public class PageAlreadyExist extends RuntimeException {
     private static final long serialVersionUID = 1L;
 
 }

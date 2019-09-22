@@ -4,13 +4,13 @@ import com.example.book.model.Author;
 import com.example.book.model.Book;
 import com.example.book.service.IAuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/author")
+@CrossOrigin(origins = "http://localhost:4200")
 public class AuthorController {
     private IAuthorService service;
 

@@ -1,9 +1,12 @@
 package com.example.book.service.impl;
 
+import com.example.book.exceptions.AuthorNotFoundException;
 import com.example.book.exceptions.BookAlreadyExistException;
+import com.example.book.exceptions.BookNotFoundException;
 import com.example.book.model.Author;
 import com.example.book.model.Book;
 import com.example.book.model.EntityInput.BookEntityInput;
+import com.example.book.model.Page;
 import com.example.book.repository.AuthorRepository;
 import com.example.book.repository.BookRepository;
 import com.example.book.service.IBookService;
@@ -28,7 +31,9 @@ public class BookService implements IBookService {
 
 
     public Book getBookByID(Long id) {
-        return bookRepository.getOne(id);
+        Optional<Book> bookOptional = bookRepository.getBookEntityById(id);
+        return bookOptional.get();
+
     }
 
     public Book saveBook(BookEntityInput book) {
@@ -44,7 +49,7 @@ public class BookService implements IBookService {
                 addedAuthors = true;
             } else continue;
         }
-        if (!addedAuthors) throw new IllegalArgumentException("There is no authors for this book");
+        if (!addedAuthors) throw new AuthorNotFoundException();
         Book newBook = new Book(book.getTitle(), book.getGenre());
         newBook.setAuthors(authors);
         return bookRepository.save(newBook);
@@ -52,8 +57,35 @@ public class BookService implements IBookService {
 
     }
 
+    @Override
+    public Book saveBook(Book book) {//for test only
+        Optional<Book> bookOptional = bookRepository.getBookEntityByTitle(book.getTitle());
+        if (bookOptional.isPresent()) throw new BookAlreadyExistException();
+        return bookRepository.save(book);
+    }
+
     public List<Book> getBookList() {
         return bookRepository.findAll();
+    }
+
+    @Override
+    public List<Page> getPageList(String id) {
+        Optional<Book> bookOptional = bookRepository.getBookEntityById(Long.parseLong(id));
+        return bookOptional.get().getPages();
+    }
+
+    @Override
+    public List<Author> getAuthorList(String id) {
+        Optional<Book> bookOptional = bookRepository.getBookEntityById(Long.parseLong(id));
+        return bookOptional.get().getAuthors();
+    }
+
+    @Override
+    public void deleteBook(String id) {
+        Optional<Book> bookOptional = bookRepository.getBookEntityById(Long.valueOf(id));
+        if (bookOptional.isPresent())
+            bookRepository.delete(bookRepository.getOne(Long.parseLong(id)));
+        else throw new BookNotFoundException();
     }
 
 

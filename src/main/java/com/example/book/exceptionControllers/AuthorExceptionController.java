@@ -1,5 +1,6 @@
 package com.example.book.exceptionControllers;
 
+import com.example.book.exceptions.AuthorAlreadyExistException;
 import com.example.book.exceptions.AuthorNotFoundException;
 import com.example.book.exceptions.BookAlreadyExistException;
 import org.springframework.http.HttpStatus;
@@ -12,11 +13,12 @@ public class AuthorExceptionController {
 
     @ExceptionHandler(value = AuthorNotFoundException.class)
     public ResponseEntity<Object> exception(AuthorNotFoundException exception) {
-        return new ResponseEntity<>("Author with ID :"+ exception.getId() +" not found", HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>("Author not found", HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(value = IllegalStateException.class)
-    public ResponseEntity<Object> exception(IllegalStateException exception) {
+
+    @ExceptionHandler(value = AuthorAlreadyExistException.class)
+    public ResponseEntity<Object> exception(AuthorAlreadyExistException exception) {
         return new ResponseEntity<>("Author already exist ", HttpStatus.BAD_REQUEST);
     }
 

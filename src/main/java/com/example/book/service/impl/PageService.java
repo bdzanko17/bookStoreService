@@ -1,5 +1,7 @@
 package com.example.book.service.impl;
 
+import com.example.book.exceptions.BookNotFoundException;
+import com.example.book.exceptions.PageAlreadyExist;
 import com.example.book.exceptions.PageNotFoundException;
 import com.example.book.model.Book;
 import com.example.book.model.EntityInput.PageEntityInput;
@@ -27,22 +29,23 @@ public class PageService implements IPageService {
 
 
     public Page savePage(PageEntityInput pagee) {
-       Optional<Book> bookOptional =  bookRepository.getBookEntityById(pagee.getBookID());
-       if(bookOptional.isPresent()){
-           Page page2Save  = new Page();
-           page2Save.setContent(pagee.getContent());
-           page2Save.setOrdinalNumber(pagee.getOrdinalNumber());
-           page2Save.setBook(bookOptional.get());
-           return pageRepository.save(page2Save);
+        Optional<Book> bookOptional = bookRepository.getBookEntityById(pagee.getBookID());
+        if (bookOptional.isPresent()) {
+            Page page2Save = new Page();
+            page2Save.setContent(pagee.getContent());
+            page2Save.setOrdinalNumber(pagee.getOrdinalNumber());
+            page2Save.setBook(bookOptional.get());
 
-       }else  throw new IllegalAccessError("There is no book with that ID");
+            return pageRepository.save(page2Save);
+
+        } else throw new BookNotFoundException();
     }
 
     public Page getPage(Long id) {
         Optional<Page> pageeOptional = pageRepository.getPageEntityById(id);
-        if(pageeOptional.isPresent())
-        return pageRepository.getOne(id);
-        else throw new IllegalStateException();
+        if (pageeOptional.isPresent())
+            return pageRepository.getOne(id);
+        else throw new PageNotFoundException();
     }
 
     @Override
@@ -52,20 +55,26 @@ public class PageService implements IPageService {
 
     @Override
     public List<Page> getPages() {
-        return  pageRepository.findAll();
+        return pageRepository.findAll();
     }
 
     @Override
     public Page updatePage(PageEntityInput pageEntityInput, Long ID) {
-        Optional<Page> pageOptional= pageRepository.getPageEntityById(ID);
+        Optional<Page> pageOptional = pageRepository.getPageEntityById(ID);
 
-        if(pageOptional.isPresent()){
+        if (pageOptional.isPresent()) {
             pageOptional.get().setContent(pageEntityInput.getContent());
             pageOptional.get().setOrdinalNumber(pageEntityInput.getOrdinalNumber());
-        }else{
+        } else {
             throw new PageNotFoundException();
         }
         return pageRepository.save(pageOptional.get());
     }
+
+    @Override
+    public void deletePages() {
+        pageRepository.deleteAll();
+    }
+
 
 }
