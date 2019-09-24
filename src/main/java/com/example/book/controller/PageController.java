@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/page")
+@RequestMapping("/pages")
 public class PageController {
 
     private IPageService service;

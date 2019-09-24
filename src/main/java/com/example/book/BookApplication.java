@@ -32,10 +32,13 @@ public class BookApplication {
                 authorRepository.save(author);
 
             });
-//            authorRepository.findAll().forEach(System.out::println);
-//            ArrayList<Long> lista =new ArrayList<Long>(Arrays.asList(1l));
-//            BookEntityInput book = new BookEntityInput("dozivljaj misa  sisa",  "komedija",lista);
-//            bookService.saveBook(book);
+            authorRepository.findAll().forEach(System.out::println);
+            ArrayList<Long> lista = new ArrayList<Long>(Arrays.asList(1l,2l));
+            BookEntityInput book = new BookEntityInput("dozivljaj misa  sisa", "komedija", lista);
+            bookService.saveBook(book);
+            book = new BookEntityInput("Aske u lovu", "tragedija", lista);
+            bookService.saveBook(book);
+
         };
 
     }

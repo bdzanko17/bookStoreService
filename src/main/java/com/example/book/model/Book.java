@@ -20,7 +20,6 @@ public class Book implements Serializable {
     private String title;
     private String genre;
 
-    @JsonManagedReference
     @ManyToMany
     private List<Author> authors = new ArrayList<>();
 
