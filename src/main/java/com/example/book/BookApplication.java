@@ -24,23 +24,23 @@ public class BookApplication {
         SpringApplication.run(BookApplication.class, args);
     }
 
-    @Bean
-    CommandLineRunner init(AuthorRepository authorRepository, BookService bookService) {
-        return args -> {
-            Stream.of("Haris", "Edin", "Almedina", "Merjema").forEach(name -> {
-                Author author = new Author(name);
-                authorRepository.save(author);
-
-            });
-            authorRepository.findAll().forEach(System.out::println);
-            ArrayList<Long> lista = new ArrayList<Long>(Arrays.asList(1l,2l));
-            BookEntityInput book = new BookEntityInput("dozivljaj misa  sisa", "komedija", lista);
-            bookService.saveBook(book);
-            book = new BookEntityInput("Aske u lovu", "tragedija", lista);
-            bookService.saveBook(book);
-
-        };
-
-    }
+//    @Bean
+//    CommandLineRunner init(AuthorRepository authorRepository, BookService bookService) {
+//        return args -> {
+//            Stream.of("Haris", "Edin", "Almedina", "Merjema").forEach(name -> {
+//                Author author = new Author(name);
+//                authorRepository.save(author);
+//
+//            });
+//            authorRepository.findAll().forEach(System.out::println);
+//            ArrayList<Long> lista = new ArrayList<Long>(Arrays.asList(1l,2l));
+//            BookEntityInput book = new BookEntityInput("dozivljaj misa  sisa", "komedija", lista);
+//            bookService.saveBook(book);
+//            book = new BookEntityInput("Aske u lovu", "tragedija", lista);
+//            bookService.saveBook(book);
+//
+//        };
+//
+//    }
 
 }

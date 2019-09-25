@@ -11,6 +11,7 @@ public interface IBookService {
     Book getBookByID(Long id);
 
     Book saveBook(BookEntityInput book);
+
     Book saveBook(Book book);
 
     List<Book> getBookList();

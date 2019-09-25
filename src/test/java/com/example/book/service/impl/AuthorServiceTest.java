@@ -74,11 +74,11 @@ public class AuthorServiceTest {
         Author author1 = new Author("benjamin");
         when(authorRepository.save(author1)).thenReturn(author1);
         Author author = service.save(author1);
-        verify(authorRepository,times(1)).save(author1);
+        verify(authorRepository, times(1)).save(author1);
         service.deleteAuthor(author.getId());
         when(authorRepository.save(author1)).thenThrow(new AuthorNotFoundException());
         service.save(author1);
-        verify(authorRepository,times(1)).save(author1);
+        verify(authorRepository, times(1)).save(author1);
     }
 
 
