@@ -4,13 +4,10 @@ import com.example.book.exceptions.AuthorAlreadyExistException;
 import com.example.book.exceptions.AuthorNotFoundException;
 import com.example.book.model.Author;
 import com.example.book.model.Book;
+import com.example.book.model.dto.AuthorDTO;
 import com.example.book.repository.AuthorRepository;
-import com.example.book.repository.BookRepository;
 import com.example.book.service.IAuthorService;
-import com.sun.org.apache.bcel.internal.generic.RETURN;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -28,12 +25,12 @@ public class AuthorService implements IAuthorService {
 
 
     @Override
-    public Author save(Author author) {
+    public AuthorDTO save(Author author) {
         Optional<Author> authorOptional = authorRepository.getAuthorEntityByName(author.getName());
         if (authorOptional.isPresent()) {
             throw new AuthorAlreadyExistException();
         }
-        return authorRepository.save(author);
+        return new AuthorDTO(authorRepository.save(author));
     }
 
     public void deleteAuthor(Long id) {
@@ -49,19 +46,27 @@ public class AuthorService implements IAuthorService {
     }
 
 
-    public Author getAuthor(long authorID) {
+    public AuthorDTO getAuthor(long authorID) {
         Optional<Author> authorOptional = authorRepository.getAuthorEntityById(authorID);
         if (authorOptional.isPresent()) {
-            return authorOptional.get();
+            System.out.println(authorOptional.get().getBooks().size());
+            return  new AuthorDTO(authorOptional.get());
             // return new ResponseEntity<>("Product found successfully", HttpStatus.OK);
         } else {
             throw new AuthorNotFoundException();
         }
     }
 
-    public List<Author> getAllAuthors() {
-        return authorRepository.findAll();
+    public ArrayList<AuthorDTO> getAllAuthors() {
 
+        ArrayList<Author> authors = new ArrayList<>((int)authorRepository.count());
+        ArrayList<AuthorDTO> authorDTOS = new ArrayList<>((int)authorRepository.count());
+        authorRepository.findAll().forEach(authors::add);
+        for(Author author : authors){
+            if(author.getId()!=null)
+                authorDTOS.add(new AuthorDTO(author));
+        }
+        return authorDTOS;
     }
 
     public List<Book> getBooksFromAuthor(Long authorID) {

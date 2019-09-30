@@ -1,6 +1,7 @@
 package com.example.book.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -22,8 +23,7 @@ public class Book implements Serializable {
 
     @ManyToMany
     private List<Author> authors = new ArrayList<>();
-
-    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Page> pages = new ArrayList<>();
 
 

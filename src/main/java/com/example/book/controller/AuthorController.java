@@ -2,10 +2,12 @@ package com.example.book.controller;
 
 import com.example.book.model.Author;
 import com.example.book.model.Book;
+import com.example.book.model.dto.AuthorDTO;
 import com.example.book.service.IAuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -20,7 +22,7 @@ public class AuthorController {
     }
 
     @PostMapping
-    public Author addAuthor(@RequestBody Author author) {
+    public AuthorDTO addAuthor(@RequestBody Author author) {
         return service.save(author);
     }
 
@@ -40,13 +42,13 @@ public class AuthorController {
     }
 
     @GetMapping(value = "/{id}")
-    public Author getAuthor(@PathVariable String id) {
+    public AuthorDTO getAuthor(@PathVariable String id) {
         return service.getAuthor(Long.parseLong(id));
     }
 
     @GetMapping
-    public List<Author> getAuthors() {
-        List<Author> authors = service.getAllAuthors();
+    public ArrayList<AuthorDTO> getAuthors() {
+        ArrayList<AuthorDTO> authors = service.getAllAuthors();
         return authors;
     }
 

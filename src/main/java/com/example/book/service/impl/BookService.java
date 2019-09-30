@@ -14,9 +14,7 @@ import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class BookService implements IBookService {
@@ -40,6 +38,7 @@ public class BookService implements IBookService {
         Optional<Book> bookOptional = bookRepository.getBookEntityByTitle(book.getTitle());
         if (bookOptional.isPresent()) throw new BookAlreadyExistException();
         List<Long> authorID = book.getAuthors();
+        Set<Long> mySet = new HashSet<Long>();
         List<Author> authors = new ArrayList<>();
         Boolean addedAuthors = false;
         for (int i = 0; i < authorID.size(); i++) {
