@@ -1,4 +1,4 @@
-package com.example.book.exceptionControllers;
+package exceptionControllers;
 
 import com.example.book.exceptions.BookAlreadyExistException;
 import com.example.book.exceptions.BookNotFoundException;

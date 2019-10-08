@@ -1,6 +1,5 @@
-package com.example.book.exceptionControllers;
+package exceptionControllers;
 
-import com.example.book.exceptions.AuthorNotFoundException;
 import com.example.book.exceptions.PageAlreadyExist;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

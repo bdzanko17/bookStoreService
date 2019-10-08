@@ -7,6 +7,7 @@ import com.example.book.model.Page;
 import com.example.book.service.IBookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -30,8 +31,9 @@ public class BookController {
     public Book getBook(@PathVariable Long id) {
         return service.getBookByID(id);
     }
+
     @GetMapping("/getPages/{id}")
-    public List<Page> getPageList(@PathVariable String id){
+    public List<Page> getPageList(@PathVariable String id) {
         return service.getPageList(id);
     }
 
@@ -39,17 +41,16 @@ public class BookController {
     public List<Book> getBookList() {
         return service.getBookList();
     }
+
     @GetMapping("/getAuthors/{id}")
-    public List<Author> getAuthorsList(@PathVariable String id){
+    public List<Author> getAuthorsList(@PathVariable String id) {
         return service.getAuthorList(id);
     }
-    @DeleteMapping("/deleteBook/{id}")
-    public void deleteBook(@PathVariable String id){
+
+    @DeleteMapping("/{id}")
+    public void deleteBook(@PathVariable String id) {
         service.deleteBook(id);
     }
-
-
-
 
 
 }

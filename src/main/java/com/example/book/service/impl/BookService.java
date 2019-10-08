@@ -38,7 +38,8 @@ public class BookService implements IBookService {
         Optional<Book> bookOptional = bookRepository.getBookEntityByTitle(book.getTitle());
         if (bookOptional.isPresent()) throw new BookAlreadyExistException();
         List<Long> authorID = book.getAuthors();
-        Set<Long> mySet = new HashSet<Long>();
+        Set<Long> mySet = new HashSet<Long>(authorID);
+        authorID = new ArrayList<>(mySet);
         List<Author> authors = new ArrayList<>();
         Boolean addedAuthors = false;
         for (int i = 0; i < authorID.size(); i++) {
