@@ -50,7 +50,7 @@ public class AuthorService implements IAuthorService {
         Optional<Author> authorOptional = authorRepository.getAuthorEntityById(authorID);
         if (authorOptional.isPresent()) {
             System.out.println(authorOptional.get().getBooks().size());
-            return  new AuthorDTO(authorOptional.get());
+            return new AuthorDTO(authorOptional.get());
             // return new ResponseEntity<>("Product found successfully", HttpStatus.OK);
         } else {
             throw new AuthorNotFoundException();
@@ -59,11 +59,11 @@ public class AuthorService implements IAuthorService {
 
     public ArrayList<AuthorDTO> getAllAuthors() {
 
-        ArrayList<Author> authors = new ArrayList<>((int)authorRepository.count());
-        ArrayList<AuthorDTO> authorDTOS = new ArrayList<>((int)authorRepository.count());
+        ArrayList<Author> authors = new ArrayList<>((int) authorRepository.count());
+        ArrayList<AuthorDTO> authorDTOS = new ArrayList<>((int) authorRepository.count());
         authorRepository.findAll().forEach(authors::add);
-        for(Author author : authors){
-            if(author.getId()!=null)
+        for (Author author : authors) {
+            if (author.getId() != null)
                 authorDTOS.add(new AuthorDTO(author));
         }
         return authorDTOS;
